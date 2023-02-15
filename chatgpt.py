@@ -1,8 +1,13 @@
 import json
 from revChatGPT.V1 import Chatbot
 
+from dotenv import load_dotenv
 
-with open("/home/eunbinpark/.config/revChatGPT/config.json") as f:
+
+load_dotenv()
+
+
+with open(os.environ["CONFIG_FILE_PATH"]) as f:
     chatgpt_config = json.load(f)
 
 def ChatGPT(prompt):
