@@ -1,0 +1,4 @@
+slack==0.0.2
+slackClient==2.9.4
+python_dotenv==0.21.1
+revChatGPT==2.2.2
