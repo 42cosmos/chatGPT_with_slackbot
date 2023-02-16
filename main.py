@@ -12,11 +12,10 @@ from util.postgre import sql
 
 
 load_dotenv()
-
+postgres = sql()
 
 def toss_to_db(log_history, bot_id, table_name: str="messages"):
-    postgres = sql()
-    
+    global postgres
     if "blocks" in log_history.keys():
         unix_to_timestamp = datetime.datetime.fromtimestamp(float(log_history["ts"]))
         unix_to_timestamp = datetime.datetime.strftime(unix_to_timestamp, "%Y-%m-%d %H:%M:%S.%f")
@@ -30,7 +29,7 @@ def toss_to_db(log_history, bot_id, table_name: str="messages"):
             
         except:
             slack_id = bot_id
-
+        
         if slack_id:
             log_data = {"thread_id": log_history["thread_ts"] if "thread_ts" in log_history.keys() else log_history["event_ts"],
                         "block_id": log_history["blocks"][0]["block_id"],
