@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    container_name: hermes_db
+    restart: "unless-stopped"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - ./util/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - hermes_db_data:/var/lib/postgresql/data
+
+  hermes:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./:/app
+
+volumes:
+  hermes_db_data:
