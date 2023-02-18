@@ -13,11 +13,13 @@ with open(os.environ["CONFIG_FILE_PATH"]) as f:
 
 def ChatGPT(prompt):
     chatbot = Chatbot(config=chatgpt_config)
-    response = "ChatGPT is at capacity right now"
+    response = {"message": "ChatGPT is at capacity right now",
+               "conversation_id": "",
+               "parent_id": ""}
     try:
         res = list(chatbot.ask(prompt))
         if isinstance(res, list) and res:
-            response = res[-1]["message"]
+            response = res[-1]
     except:
         pass
 
